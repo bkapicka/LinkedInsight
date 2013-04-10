@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>LinkedInsight</title>
+		
+		<!-- Load style sheets -->
+		<link rel="stylesheet" type="text/css" href="mainLayout.css" />
+    </head>
+    
+	
+	<body>
+      <div id="fb-root"></div>
+      <script>
+				
+		function login() {
+		FB.login(function(response) {
+				if (response.authResponse) {
+					// connected
+					testAPI();
+				} else {
+					// cancelled
+				}
+			});
+		}
+		
+		function testAPI() {
+			console.log('Welcome!  Fetching your information.... ');
+			FB.api('/me', function(response) {
+				console.log('Good to see you, ' + response.name + '.');
+				var image = document.getElementById('image');
+				  image.src = 'https://graph.facebook.com/' + response.id + '/picture';
+				var name = document.getElementById('name');
+				  name.innerHTML = response.name;
+				var name = document.getElementById('hometown');
+				  name.innerHTML = response.hometown.name;
+			});
+			FB.api('/me/friends', function(response) {
+				var name = document.getElementById('friends');
+				  var friendslist;
+				  for (var i = 0; i < response.data.length; i++) {
+					friendslist = friendslist + response.data[i].name + "\n";
+				  }
+				  name.innerHTML = friendslist;
+				  
+			});
+			FB.api('/me/likes', function(response) {
+				var name = document.getElementById('likes');
+				var likesMoreInfo = document.getElementById('likesMoreInfo');
+				  var likesList;
+				  for (var i = 0; i < response.data.length; i++) {
+					likesList = likesList + response.data[i].category +":" +  response.data[i].name+ " \n";
+					FB.api("/"+response.data[i].id, function(response) {
+						likesMoreInfo.innerHTML = likesMoreInfo.innerHTML + "\n\n" + response.description;
+					});
+				  }
+				  name.innerHTML = likesList;
+				// crawl through and get id for stuff
+				
+			});
+		}	  
+	  
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '153506961485121', // App ID
+            channelUrl : 'channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+          });
+		  FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+			console.log("connected");
+			testAPI();			
+		  } else if (response.status === 'not_authorized') {
+			console.log("not authorized");
+			//login();
+		  } else {
+			console.log("not logged in");
+			//login();
+		  }
+		 });
+        };
+	
+        // Load the SDK Asynchronously
+        (function(d){
+           var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           ref.parentNode.insertBefore(js, ref);
+         }(document));
+      </script>
+
+    <div id="header">
+        <h1 style="display: none">LinkedInsight</h1>
+    </div>
+
+    <div id="wrapper"> 
+        <div id="intro">
+           
+        </div>
+    
+        <div id="slider">    
+            <ul class="navigation">
+                <li><a href="#sites">Menu1</a></li>
+                <li><a href="#sites">Menu2</a></li>
+            </ul>
+
+            <div class="scroll">
+               	<div class="panel" id="sites">
+						<img id="image"/>
+						<div id="name"></div>
+						<div id="hometown"></div>
+						<div id="friends"></div>
+						<div id="likes"></div>
+						<div id="likesMoreInfo"></div>
+						
+					</div>
+				
+			</div>
+		</div>
+		<p id="footer">LinkedInsight Inc. <a href="">CC</a></p>
+
+        
+    </div>
+
+    </body>
+ </html>
