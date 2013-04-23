@@ -3,15 +3,11 @@
 // *********
 
 /* 
-BUG 1: need to account for paranthesis used in artist,album,singles
-BUG 2: Update to account for multiple types (song and single)
-	*Note: need to account for duplicate (add "single")
-Clean-up: Move all queries to artist files
 Faster: remove prefixes given dbpedia (except for dbp/dbp2 - replace w/ sparql prefixs for dbpedia
-Depiction - if it doesn't exist, may be worth to check for flickr stream and pull first photo in new function
 
 //Data issues:
 Start and End year sometime the same
+Depiction - if it doesn't exist, may be worth to check for flickr stream and pull first photo in new function
 
 **** Example dual song/single query
 PREFIX dbp: <http://dbpedia.org/resource/>PREFIX dbp2: <http://dbpedia.org/ontology/>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -48,11 +44,11 @@ function artist_URI(artist){
             	+ "PREFIX dbp2: <http://dbpedia.org/ontology/>"
             	+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
             	+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-            	+ "SELECT ?uri WHERE { ?uri rdf:type dbp2:Band ."
-            	+ "{?uri rdfs:label '" + artist + "'@en }"
+            	+ "SELECT ?uri WHERE {"
+                + "{{?uri rdf:type dbp2:Band} UNION {?uri rdf:type dbp2:Artist}} ."
+            	+ "{{?uri rdfs:label '" + artist + "'@en }"
             	+ "UNION {?uri rdfs:label '" + artist + " (band)'@en }"
-                + "UNION {?uri rdfs:label '" + artist + " (Band)'@en }"
-            	+ "}";
+                + "UNION {?uri rdfs:label '" + artist + " (Band)'@en }}}";
 	var artist_URI = dbpedia_query(query,'uri');
     return artist_URI;
 };
