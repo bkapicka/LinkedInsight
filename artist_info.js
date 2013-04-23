@@ -13,16 +13,6 @@ Depiction - if it doesn't exist, may be worth to check for flickr stream and pul
 //Data issues:
 Start and End year sometime the same
 
-***** Example of requires <>
-PREFIX dbp: <http://dbpedia.org/resource/>
-PREFIX dbp2: <http://dbpedia.org/ontology/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>SELECT ?abstract WHERE { 
-
-<http://dbpedia.org/resource/Californication_(song)> dbp2:abstract ?abstract 
-. FILTER langMatches(lang(?abstract), 'en') }
-
-
-
 **** Example dual song/single query
 PREFIX dbp: <http://dbpedia.org/resource/>PREFIX dbp2: <http://dbpedia.org/ontology/>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 SELECT ?abstract WHERE { 
@@ -41,29 +31,7 @@ UNION
 } 
 
 
-LIST QUERY
-    var query = "PREFIX dbp: <http://dbpedia.org/resource/>"
-            + "PREFIX dbp2: <http://dbpedia.org/ontology/>"
-            + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-            + "SELECT ?"+property+" WHERE { dbp:" + subject + " dbp2:"+property
-            + " ?"+property
-            + ". dbp:" + subject + " rdf:type dbp2:" + subject_type +"};";
 
-
-*/
-
-
-/*
-Reference Query
-
-var query 	= "PREFIX dbp: <http://dbpedia.org/resource/>"
-        	+ "PREFIX dbp2: <http://dbpedia.org/ontology/>"
-        	+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-        	+ "SELECT ?"+property+" WHERE { <http://dbpedia.org/resource/" + subject + "> dbp2:"+property
-        	+ " ?"+property
-			+ " . FILTER langMatches(lang(?"+property+"), '"+language_code+"')";
-				+ ". <http://dbpedia.org/resource/" + subject + "> rdf:type dbp2:" + subject_type ;
-			+ "}";
 */
 
 // Input: Artist name (from facebook)
@@ -216,7 +184,6 @@ function album_photo(album_uri) {
     query = "PREFIX  foaf: <http://xmlns.com/foaf/0.1/>"
             + "SELECT ?depiction WHERE {"
             + " <" + album_uri + "> foaf:depiction ?depiction}";
-            console.log(query);
     var photo = dbpedia_query(query,'depiction');
     
     //Replace album photo w/ 'en'
@@ -255,7 +222,6 @@ function album_single_list(album_uri){
                 + "SELECT ?single WHERE {"
                 + " ?single dbpprop:fromAlbum <" + album_uri + "> ." 
                 + " ?single rdf:type dbp2:Single }";
-    console.log(query);
     var singleList = dbpedia_query_list(query,'single');
     return singleList;
 };
@@ -265,7 +231,12 @@ function album_single_list(album_uri){
 // Singles
 // *********
 function single_displayName(single_uri){
-
+    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
+                + "PREFIX dbpprop: <http://dbpedia.org/property/>"
+                + "SELECT ?name WHERE "
+                + "{ <" + single_uri + "> dbpprop:name ?name}";
+    var displayName = dbpedia_query(query,'name');
+    return displayName;
 }
 
 function single_abstract(single_uri){
