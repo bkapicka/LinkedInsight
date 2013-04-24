@@ -2,34 +2,6 @@
 // Artists
 // *********
 
-/* 
-Faster: remove prefixes given dbpedia (except for dbp/dbp2 - replace w/ sparql prefixs for dbpedia
-
-//Data issues:
-Start and End year sometime the same
-Depiction - if it doesn't exist, may be worth to check for flickr stream and pull first photo in new function
-
-**** Example dual song/single query
-PREFIX dbp: <http://dbpedia.org/resource/>PREFIX dbp2: <http://dbpedia.org/ontology/>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-SELECT ?abstract WHERE { 
-
-<http://dbpedia.org/resource/Charlie_(song)> dbp2:abstract ?abstract . FILTER langMatches(lang(?abstract), 'en') . 
-
-# Songs
-{
-<http://dbpedia.org/resource/Charlie_(song)> rdf:type dbp2:Song
-}
-UNION
-# and Singles
-{
-<http://dbpedia.org/resource/Charlie_(song)> rdf:type dbp2:Single
-}
-} 
-
-
-
-*/
-
 // Input: Artist name (from facebook)
 // Return: Artist URI
 
@@ -52,6 +24,18 @@ function artist_URI(artist){
 	var artist_URI = dbpedia_query(query,'uri');
     return artist_URI;
 };
+
+//
+function artist_info(artist_uri){
+    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
+                + "PREFIX dbpprop: <http://dbpedia.org/property/>"
+                + "SELECT ?name ?abstract WHERE "
+                + "{ <" + artist_uri + "> dbpprop:name ?name ."
+                + " <" + artist_uri + "> dbp2:abstract ?abstract"
+                + " . FILTER langMatches(lang(?abstract), 'en')}"
+    var displayName = dbpedia_query(query,'name');
+    return displayName;
+}
 
 // Input: artist URI
 // Output: Artist Display Name
@@ -245,8 +229,12 @@ function single_abstract(single_uri){
     return abstract;
 }
 
-function single_releaseData(single_uri){
+function single_releaseDate(single_uri){
 // Returns artist start date
-	activeStart = dbpedia_query('releaseDate',single,'Song',true);
+    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
+                + "PREFIX dbp2: <http://dbpedia.org/ontology/>"
+                + "SELECT ?releaseDate WHERE "
+                + "{ <" + single_uri + "> dbp2:releaseDate ?releaseDate}";  
+	activeStart = dbpedia_query(query,'releaseDate');
 	return activeStart;
 };

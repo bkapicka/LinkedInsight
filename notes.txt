@@ -1,0 +1,7 @@
+Artists JS File
+
+Faster: remove prefixes given dbpedia (except for dbp/dbp2 - replace w/ sparql prefixs for dbpedia
+
+//Data issues:
+Start and End year sometime the same
+Depiction - if it doesn't exist, may be worth to check for flickr stream and pull first photo in new function

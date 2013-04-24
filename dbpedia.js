@@ -12,6 +12,7 @@ function dbpedia_query(query,property){
 	var endpoint = "http://dbpedia.org/sparql"; 
     var queryResult = singleSparqlQueryJson(query, endpoint, false);
     var jsonObj = eval('(' + queryResult + ')');
+    console.log(jsonObj);
     if (typeof jsonObj.results.bindings[0] != 'undefined'){
         var result = jsonObj.results.bindings[0][property].value;
         return result;
