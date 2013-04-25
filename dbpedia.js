@@ -40,3 +40,28 @@ function dbpedia_query_list(query,property){
     }
     return result;
 };
+
+
+
+
+//
+function dbpedia_query_json(query,property_array){
+    var endpoint = "http://dbpedia.org/sparql";
+    var queryResult = singleSparqlQueryJson(query, endpoint, false);
+    var jsonObj = eval('(' + queryResult + ')');
+    var result = '';
+
+    var jsonList = [] 
+    jsonList.instances = {}
+    console.log(jsonObj)
+    for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+        jsonList.instances[i] = {}
+        for(var j = 0; j <  property_array.length; j++) {
+            property = property_array[j];
+            prop_value = jsonObj.results.bindings[i][property].value;
+            jsonList.instances[i][property] = prop_value
+        }
+
+    }
+    return jsonList;
+}

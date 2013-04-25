@@ -10,14 +10,77 @@ function replace_space(str){
 	return updated_str;
 }
 
+/*
+function artist_info(artist_uri){
+    var query   = "SELECT ?name ?abstract ?activeStart WHERE "
+                + "{ <" + artist_uri + ">   dbpprop:name ?name ;"
+                                        + " dbpedia-owl:abstract ?abstract;"
+                                        + " dbpedia-owl:activeYearsStartYear ?activeStart"
+                + " . FILTER langMatches(lang(?abstract), 'en')"
+                + " . FILTER langMatches(lang(?name), 'en')}"
+                + "LIMIT 1"
+    console.log(query)
+    var properties = ['name','abstract', 'activeStart']
+    var displayName = dbpedia_query_json(query,properties);
+    return displayName;
+}*/
+
+// Requires: Array of artist uris
+// Effects: Returns 
+function artists_info(artist_uri_array){
+    var artist_list = ""
+    for(var i = 0; i <  artist_uri_array.length; i++) {
+        artist_list += "<"+artist_uri_array[i] + ">"
+        if (i != artist_uri_array.length - 1){
+            artist_list += ","
+        }
+    }
+
+
+    var query   = "SELECT distinct ?name ?abstract (substr(str(?activeStart),1,10) AS ?activeStart) ?depiction "
+                + "WHERE { "
+                + " ?artist_uri  dbpprop:name ?name;"
+                            + " dbpedia-owl:abstract ?abstract;"
+                            + " dbpedia-owl:activeYearsStartYear ?activeStart;"
+                            + " foaf:depiction ?depiction"
+                + " . FILTER langMatches(lang(?abstract), 'en')"
+                + " . FILTER langMatches(lang(?name), 'en')"
+                + " . FILTER (?artist_uri in ("+artist_list+"))}"
+    var properties = ['name','abstract', 'activeStart', 'depiction']
+    console.log(query);
+    var artistsInfo = dbpedia_query_json(query,properties);
+    return artistsInfo;
+}
+
+// Returns delimited string of albums
+function artist_albums_info(artist_uri_array){
+    var artist_list = ""
+    for(var i = 0; i <  artist_uri_array.length; i++) {
+        artist_list += "<"+artist_uri_array[i] + ">"
+        if (i != artist_uri_array.length - 1){
+            artist_list += ","
+        }
+    }
+
+    var query   = "SELECT distinct ?album ?name (substr(str(?releaseDate),1,10) AS ?releaseDate) ?abstract" 
+                + " WHERE {"
+                + " ?album dbpedia-owl:artist ?artist_uri" 
+                + " . { ?album rdf:type dbpedia-owl:Album}"
+                + "UNION" 
+                + "{ ?album rdf:type dbpedia-owl:album}"
+                + " . ?album dbpprop:name ?name"
+                + " . ?album dbpedia-owl:releaseDate ?releaseDate "
+                + " . ?album dbpedia-owl:abstract ?abstract"
+                + " . FILTER (?artist_uri in ("+artist_list+"))}"
+    var properties = ['album','name','releaseDate','abstract'];
+    var albumsInfo = dbpedia_query_json(query,properties);
+    return albumsInfo;
+}
+
 //
 function artist_URI(artist){
-	var query 	= "PREFIX dbp: <http://dbpedia.org/resource/>"
-            	+ "PREFIX dbp2: <http://dbpedia.org/ontology/>"
-            	+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-            	+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-            	+ "SELECT ?uri WHERE {"
-                + "{{?uri rdf:type dbp2:Band} UNION {?uri rdf:type dbp2:Artist}} ."
+	var query 	= "SELECT ?uri WHERE {"
+                + "{{?uri rdf:type dbpedia-owl:Band} UNION {?uri rdf:type dbpedia-owl:Artist}} ."
             	+ "{{?uri rdfs:label '" + artist + "'@en }"
             	+ "UNION {?uri rdfs:label '" + artist + " (band)'@en }"
                 + "UNION {?uri rdfs:label '" + artist + " (Band)'@en }}}";
@@ -25,17 +88,7 @@ function artist_URI(artist){
     return artist_URI;
 };
 
-//
-function artist_info(artist_uri){
-    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
-                + "PREFIX dbpprop: <http://dbpedia.org/property/>"
-                + "SELECT ?name ?abstract WHERE "
-                + "{ <" + artist_uri + "> dbpprop:name ?name ."
-                + " <" + artist_uri + "> dbp2:abstract ?abstract"
-                + " . FILTER langMatches(lang(?abstract), 'en')}"
-    var displayName = dbpedia_query(query,'name');
-    return displayName;
-}
+
 
 // Input: artist URI
 // Output: Artist Display Name
