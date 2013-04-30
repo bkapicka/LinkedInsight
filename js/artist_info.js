@@ -220,8 +220,12 @@ function album_photo(album_uri) {
     var photo = dbpedia_query(query,'depiction');
     
     //Replace album photo w/ 'en'
-    photo = photo.replace('commons','en');
-    
+    if (photo) {
+        photo = photo.replace('commons','en');
+    }
+    else {
+            return false;
+    }
     return photo;
 };
 
