@@ -3,13 +3,15 @@
 
 var LoginManager = function() {
 
+	this.allHandlers = new Array();
+    
 	this.login = function() {
-	FB.login(function(response) {
+		FB.login(function(response) {
 			if (response.authResponse) {
-				// connected
-				testAPI();
+				console.log(response.authResponse);
+				this.fetchLikesApi();
 			} else {
-				// cancelled
+				console.log("login failed");
 			}
 		});
 	}
@@ -21,14 +23,16 @@ var LoginManager = function() {
         scopeReference.dispatchDataEvent("loggedin", data);
     }
 
-	this.testAPI = function(callBack) {
+	this.fetchLikesApi = function(callBack) {
 		
         var scopeReference = this;
+        var facebookId = "undefined";
 
 		console.log('Welcome!  Fetching your information.... ');
 
 		FB.api('/me', function(response) {
 			console.log('Good to see you, ' + response.name + '.');
+			facebookId = response.id;
 			// var image = document.getElementById('image');
 			//   image.src = 'https://graph.facebook.com/' + response.id + '/picture';
 			// var name = document.getElementById('name');
@@ -47,31 +51,53 @@ var LoginManager = function() {
 		});
 		FB.api('/me/likes', function(response) {
 			  console.log("RESSPONSE"+response);
-			  var likesList;
+			  var likesMusicList = new Array();
 			  for (var i = 0; i < response.data.length; i++) {
-				likesList = likesList + response.data[i].category +":" +  response.data[i].name+ " \n";
+				//likesList = likesList + response.data[i].category +":" +  response.data[i].name+ " \n";
 				if (response.data[i].category == "Musician/band"){
-					console.log(response.data[i].category + " " + response.data[i].name);
-					var artistURI = artist_URI(response.data[i].name);
-					console.log(artistURI);
-					console.log(artist_displayName(artistURI));
-					console.log(artist_abstract(artistURI));
-					console.log(artist_activeStart(artistURI));
-					console.log(artist_photo(artistURI));
-					console.log(artist_single_list(artistURI));
-					console.log(artist_album_list(artistURI));
+					likesMusicList.push(response.data[i].name.replace(/[^a-z0-9\s-]/gi, '').trim());
 				}
 			}
 
 			if (typeof(callBack) == typeof(Function)) {
-                callBack(scopeReference, response);
+                callBack(scopeReference, {"id" : facebookId, "list" : likesMusicList});
             }
 			
 			//name.innerHTML = likesList;
 			// crawl through and get id for stuff
 			
 		});
-	}	  
+	}
+
+
+
+    ////////////////////////////////////////////////
+    // Events listening interface
+    //
+
+    
+    /**
+     * Dispatch a new event to all the event listeners of a given event type
+     */
+    this.dispatchDataEvent = function(type, details){
+        var newEvent = new DataEvent(type, details);
+
+        if (this.allHandlers[type]){
+            for (var i in this.allHandlers[type]){
+                this.allHandlers[type][i](newEvent);
+            }
+        }
+    }
+
+    /**
+     * Add a new event listener for a given event type
+     * the parameter 'handler' has to be a function with one parameter which is an event object
+     */
+    this.addEventListener = function(eventType, handler){
+        if (!this.allHandlers[eventType])
+            this.allHandlers[eventType] = [];
+        this.allHandlers[eventType].push(handler);
+    }	  
 
 }
 
@@ -89,7 +115,7 @@ window.fbAsyncInit = function() {
   FB.getLoginStatus(function(response) {
   if (response.status === 'connected') {
 	console.log("connected");
-	loginManager.testAPI(loginManager.successCallBack);			
+	loginManager.fetchLikesApi(loginManager.successCallBack);			
   } else if (response.status === 'not_authorized') {
 	console.log("not authorized");
 	loginManager.login();
