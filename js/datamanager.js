@@ -31,11 +31,15 @@ var DataManager = function() {
         return stringDate.replace('-',',');
     }
 
+    this.returnFormattedURI = function(artistURI, location) {
+        return "<br><a href = '" + artistURI +"' target='_blank'>Explore this linked object at "+location+"</a>";
+    }
+
     // TODO: super large size pictures lags system
     // TODO: broken picture links
     // TODO: performance increases
     // TODO: prune and clean up album data so one artist doesn't flood system
-    this.fetchSPARQ = function(artistNames) {
+    this.fetchSPARQ = function(artistNames, userName) {
         
         var jArrayDates = new Array();
         var minDate;
@@ -49,12 +53,19 @@ var DataManager = function() {
                 var artistStartdate = artist_activeStart(artistURI);
                 var potentialPicture = artist_photo(artistURI);
                 var potentialAbstract = artist_abstract(artistURI);
-                console.log(artistURI);
+                //console.log(this.getShortDescription(potentialAbstract) + this.returnFormattedURI(artistURI));
+                var sameAsURI = artist_sameAsUri(artistURI);
+
+                var exploreText = this.returnFormattedURI(artistURI, "DBPedia");
+                if (sameAsURI.indexOf('nytimes.com') >= 0) {
+                    exploreText = exploreText + this.returnFormattedURI(sameAsURI, "New York Times");
+                }
+
                 jArrayDates.push({
                     //"2004,1,10" why not bone thugs n harmony
                     "startDate" : artistStartdate,
                     "headline" : artistNames[i],
-                    "text": potentialAbstract? this.getShortDescription(potentialAbstract) : "",
+                    "text": potentialAbstract? this.getShortDescription(potentialAbstract) + exploreText: "",
                     "asset":
                     {
                         "media": potentialPicture ? potentialPicture : "",
@@ -130,7 +141,7 @@ var DataManager = function() {
                                 "caption":""
                             }
                         });
-                        
+
                         if (singleAlbum) {
                             jArtist++;
                         }
@@ -152,9 +163,9 @@ var DataManager = function() {
         }
 
         var jsonTimelineAttributes  = {
-            "headline":"My Music Timeline [Name]",
+            "headline":"Music Timeline of " + userName,
             "type":"default",
-            "text":"A visual chronological experience of audio",
+            "text":"A personalized visual experience of audio through time",
         //    "startDate":minDate,
             "date":jArrayDates
         }
@@ -166,10 +177,10 @@ var DataManager = function() {
         return jsonTimeline;
     }  
 
-    this.createJson = function(fileName, artistNames, callBack) {
+    this.createJson = function(fileName, artistNames, callBack, userName) {
 
         var scopeReference = this;
-        var jsonDataArray = this.fetchSPARQ(artistNames);
+        var jsonDataArray = this.fetchSPARQ(artistNames, userName);
 
         $.post('http://sxc2.scripts.mit.edu/linkedinsight/createJson.php', {
             posts:jsonDataArray,
