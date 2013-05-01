@@ -4,7 +4,6 @@
 
 // Input: Artist name (from facebook)
 // Return: Artist URI
-
 function replace_space(str){
 	var updated_str = str.replace(/\ /g,"_");  
 	return updated_str;
@@ -25,6 +24,8 @@ function artist_info(artist_uri){
     return displayName;
 }*/
 
+
+
 // Requires: Array of artist uris
 // Effects: Returns 
 function artists_info(artist_uri_array){
@@ -35,7 +36,6 @@ function artists_info(artist_uri_array){
             artist_list += ","
         }
     }
-
 
     var query   = "SELECT distinct ?name ?abstract (substr(str(?activeStart),1,10) AS ?activeStart) ?depiction "
                 + "WHERE { "
@@ -79,16 +79,39 @@ function artist_albums_info(artist_uri_array){
 
 //
 function artist_URI(artist){
-	var query 	= "SELECT ?uri WHERE {"
-                + "{{?uri rdf:type dbpedia-owl:Band} UNION {?uri rdf:type dbpedia-owl:Artist}} ."
-            	+ "{{?uri rdfs:label '" + artist + "'@en }"
-            	+ "UNION {?uri rdfs:label '" + artist + " (band)'@en }"
-                + "UNION {?uri rdfs:label '" + artist + " (Band)'@en }}}";
-	var artist_URI = dbpedia_query(query,'uri');
+    var query   = "SELECT ?uri WHERE {"
+                + "?uri rdf:type ?type;"
+                + "rdfs:label ?artist"
+                + ".FILTER (?type in (dbpedia-owl:Band, dbpedia-owl:Artist))"
+                + ".FILTER (?artist in ('" + artist + "'@en, '" + artist + " (band)'@en, '" + artist + " (Band)'@en))}"
+    //console.log(query);
+    var artist_URI = dbpedia_query(query,'uri');
     return artist_URI;
-};
+}
 
 
+// Requires: Array of artists
+function artist_list_URI(artist_array){
+    //var time1 = new Date();
+    var artist_list = ""
+    for(var i = 0; i <  artist_array.length; i++) {
+        artist_list += "'" + artist_array[i] + "'@en, '" + artist_array[i] + " (band)'@en, '" + artist_array[i] + " (Band)'@en"
+        if (i != artist_array.length - 1){
+            artist_list += ","
+        }
+    }
+    var query   = "SELECT ?uri WHERE {"
+                + "?uri rdf:type ?type;"
+                + "rdfs:label ?artist"
+                + ".FILTER (?type in (dbpedia-owl:Band, dbpedia-owl:Artist))"
+                + ".FILTER langMatches(lang(?artist), 'en')"
+                + ".FILTER (?artist in ("+artist_list+"))}"
+    //console.log(query);
+    var artist_URI = dbpedia_query_array(query,'uri')
+    //var time2 = new Date();
+    //console.log(time2.getTime() - time1.getTime());
+    return artist_URI;
+}
 
 // Input: artist URI
 // Output: Artist Display Name
@@ -209,7 +232,7 @@ function album_artist(album_uri) {
                 + "{ <" + album_uri + "> dbpedia-owl:artist ?artist}";
     var artist = dbpedia_query(query,'artist');
     return artist;
-};
+}
 
 //Returns photo location from depiction field in dbpedia (note - most use outdated photo)
 //dbpedia - depiciton of - replace "commons" with location data in url
@@ -227,7 +250,7 @@ function album_photo(album_uri) {
             return false;
     }
     return photo;
-};
+}
 
 // Returns wikipedia abstract as string (source is dbpedia)
 function album_abstract(album_uri) {
@@ -238,7 +261,7 @@ function album_abstract(album_uri) {
                 + " . FILTER langMatches(lang(?abstract), 'en')}";  
     var abstract = dbpedia_query(query,'abstract');
     return abstract;
-};
+}
 
 // Returns album start date
 function album_releaseDate(album_uri){
@@ -248,7 +271,7 @@ function album_releaseDate(album_uri){
                 +"{ <" + album_uri + "> dbp2:releaseDate ?releaseDate }";
     var releaseDate = dbpedia_query(query,'releaseDate');
 	return releaseDate;
-};
+}
 
 // Returns delimited string of albums
 function album_single_list(album_uri){
@@ -261,7 +284,7 @@ function album_single_list(album_uri){
                 + " ?single rdf:type dbp2:Single }";
     var singleList = dbpedia_query_list(query,'single');
     return singleList;
-};
+}
 
 
 // *********
@@ -294,4 +317,4 @@ function single_releaseDate(single_uri){
                 + "{ <" + single_uri + "> dbp2:releaseDate ?releaseDate}";  
 	activeStart = dbpedia_query(query,'releaseDate');
 	return activeStart;
-};
+}

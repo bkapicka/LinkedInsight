@@ -49,7 +49,6 @@ function dbpedia_query_json(query,property_array){
     var endpoint = "http://dbpedia.org/sparql";
     var queryResult = singleSparqlQueryJson(query, endpoint, false);
     var jsonObj = eval('(' + queryResult + ')');
-    var result = '';
 
     var jsonList = [] 
     jsonList.instances = {}
@@ -64,4 +63,18 @@ function dbpedia_query_json(query,property_array){
 
     }
     return jsonList;
+}
+
+//
+function dbpedia_query_array(query,property){
+    var endpoint = "http://dbpedia.org/sparql";
+    var queryResult = singleSparqlQueryJson(query, endpoint, false);
+    var jsonObj = eval('(' + queryResult + ')');
+
+    var arrayList = [] 
+    for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+        prop_value = jsonObj.results.bindings[i][property].value;
+        arrayList[i] = prop_value
+    }
+    return arrayList;
 }
