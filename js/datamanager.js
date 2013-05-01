@@ -197,20 +197,27 @@ var DataManager = function() {
         return jsonTimeline;
     } 
 
-    this.fetchSPARQ2 = function(artistNames) {
+    this.fetchSPARQL2 = function(artistNames) {
         
         var jArrayDates = new Array();
         var minDate;
 
         console.log("fav artists:" + artistNames);
+
+        var artistsURI = new Array();
+        artistsURI = artist_list_URI(artistNames)
+
+        var artistsInfo = new Array();
+        artistsInfo = artists_info()
+
         var i = 0, iArtist = 0;
         while ((iArtist < MAXARTISTS) && (i < artistNames.length)) {
        // for ( var i = 0; i <  Math.min(artistNames.length,20); i++) {
             var artistURI = artist_URI(artistNames[i]);
             if (artistURI) {
-                var artistStartdate = artist_activeStart(artistURI);
-                var potentialPicture = artist_photo(artistURI);
-                var potentialAbstract = artist_abstract(artistURI);
+                var artistStartdate = artistsInfo[i][activeStart];
+                var potentialPicture = artistsInfo[i][depiction];
+                var potentialAbstract = artistsInfo[i][abstract];
                 console.log(artistURI);
                 jArrayDates.push({
                     //"2004,1,10" why not bone thugs n harmony

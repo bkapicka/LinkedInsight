@@ -83,12 +83,35 @@ function artist_URI(artist){
                 + "?uri rdf:type ?type;"
                 + "rdfs:label ?artist"
                 + ".FILTER (?type in (dbpedia-owl:Band, dbpedia-owl:Artist))"
-                + ".FILTER (?artist in ('" + artist + "'@en, '" + artist + " (band)'@en, '" + artist + " (Band)'@en))}"
-    //console.log(query);
+                + ".FILTER (?artist in ('" + artist + "'@en, '" + artist + " (band)'@en, '" + artist + " (Band)'@en))"
+                + ".FILTER langMatches(lang(?artist), 'en')"
+                + "}"
+    console.log(query);
     var artist_URI = dbpedia_query(query,'uri');
     return artist_URI;
 }
 
+function artist_URI2(artist){
+    var query   = "SELECT ?uri WHERE {"
+                + "?uri rdf:type ?type;"
+                + "rdfs:label ?artist"
+                + ".FILTER (?type in (dbpedia-owl:Band, dbpedia-owl:Artist))"
+                + ".FILTER (?artist in ('" + artist + "'@en, '" + artist + " (band)'@en, '" + artist + " (Band)'@en))"
+                + "}"
+    console.log(query);
+    var artist_URI = dbpedia_query(query,'uri');
+    return artist_URI;
+}
+
+function artist_URI_old(artist){
+    var query   = "SELECT ?uri WHERE {"
+                + "{{?uri rdf:type dbpedia-owl:Band} UNION {?uri rdf:type dbpedia-owl:Artist}}"
+                + " . ?uri rdfs:label ?artist"
+                + " . FILTER (?artist in ('" + artist + "'@en, '" + artist + " (band)'@en, '" + artist + " (Band)'@en))}"
+    console.log(query);
+    var artist_URI = dbpedia_query(query,'uri');
+    return artist_URI;
+}
 
 // Requires: Array of artists
 // Returns: Array of artist URIs
