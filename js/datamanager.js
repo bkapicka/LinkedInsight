@@ -32,7 +32,24 @@ var DataManager = function() {
     }
 
     this.returnFormattedURI = function(artistURI, location) {
-        return "<br><a href = '" + artistURI +"' target='_blank'>Explore this linked object at "+location+"</a>";
+        return "<a href = '" + artistURI +"' target='_blank'>"+location+"</a>";
+    }
+
+    this.insertDefaultArtist = function() {
+        var defaultEntry = {
+                    //"2004,1,10" why not bone thugs n harmony
+                    "startDate" : "2004,1,10",
+                    "headline" : "DefaultArtist",
+                    "text": "example of a default artist description",
+                    "asset":
+                    {
+                        "media": "",
+                        "credit":"",
+                        "caption":""
+                    }
+                };
+
+        return defaultEntry;
     }
 
     // TODO: super large size pictures lags system
@@ -56,9 +73,9 @@ var DataManager = function() {
                 //console.log(this.getShortDescription(potentialAbstract) + this.returnFormattedURI(artistURI));
                 var sameAsURI = artist_sameAsUri(artistURI);
 
-                var exploreText = this.returnFormattedURI(artistURI, "DBPedia");
+                var exploreText = "<br><i>Explore this linked object:</i><br>" + this.returnFormattedURI(artistURI, "DBPedia");
                 if (sameAsURI.indexOf('nytimes.com') >= 0) {
-                    exploreText = exploreText + this.returnFormattedURI(sameAsURI, "New York Times");
+                    exploreText = exploreText + " : " +this.returnFormattedURI(sameAsURI, "New York Times");
                 }
 
                 jArrayDates.push({
@@ -162,6 +179,9 @@ var DataManager = function() {
             // need to encode in json
         }
 
+        if (iArtist == 0) {
+            jArrayDates.push(this.insertDefaultArtist());
+        }
         var jsonTimelineAttributes  = {
             "headline":"Music Timeline of " + userName,
             "type":"default",
@@ -176,6 +196,33 @@ var DataManager = function() {
 
         return jsonTimeline;
     }  
+
+    // fileName: <facebookid>.rdf
+    // rdfString: string representation of entire RDF file
+    // callBack: successcallback method, use successRDFCallBack
+    // 
+    // This function calls the scripts server to create a rdf file in the musicfoafiles subfolder
+    //   web.mit.edu/sxc2/www/linkedinsight/musicfoafiles/
+    // The remote php file will return a success or failure code
+    this.createRDF = function(fileName, rdfString, callBack) {
+
+        var scopeReference = this;
+        
+        $.post('http://sxc2.scripts.mit.edu/linkedinsight/createRDF.php', {
+            posts:rdfString,
+            fileName:fileName
+        }) 
+        .success(function(data) {
+            console.log("post create rdf success:" + fileName + " with: " + data);
+            if (typeof(callBack) == typeof(Function)) {
+                callBack(scopeReference, data);
+            }
+        })
+        .fail(function(data) {
+            console.log("post create rdf fail:" + fileName + " with: " + data);
+        });
+
+    }
 
     this.createJson = function(fileName, artistNames, callBack, userName) {
 
@@ -204,6 +251,11 @@ var DataManager = function() {
         scopeReference.dispatchDataEvent("dataloaded", data);
     }
 
+    this.successRDFCallBack = function(scopeReference, data) {
+        //getUsageData(issueIdString);
+        //    plotChart(issueIdString);
+        scopeReference.dispatchDataEvent("rdfCreated", data);
+    }
 
     ////////////////////////////////////////////////
     // Events listening interface
