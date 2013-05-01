@@ -77,7 +77,7 @@ function artist_albums_info(artist_uri_array){
     return albumsInfo;
 }
 
-//
+// individual artist URI
 function artist_URI(artist){
     var query   = "SELECT ?uri WHERE {"
                 + "?uri rdf:type ?type;"
@@ -91,6 +91,7 @@ function artist_URI(artist){
 
 
 // Requires: Array of artists
+// Returns: Array of artist URIs
 function artist_list_URI(artist_array){
     //var time1 = new Date();
     var artist_list = ""
@@ -123,28 +124,6 @@ function artist_displayName(artist_uri){
     var displayName = dbpedia_query(query,'name');
     return displayName;
 }
-
-// Input: artist URI
-// Output: Artist URIs
-function artist_sameAsUri(artist_uri){
-    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
-                + "PREFIX dbpprop: <http://dbpedia.org/property/>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "SELECT ?sameAs WHERE "
-                + "{ ?sameAs owl:sameAs <"+ artist_uri + ">}";
-    var relatedUri = dbpedia_query(query,'sameAs');
-    if (relatedUri) {
-        if (relatedUri.indexOf("nytimes.com") < 0 ){
-            return relatedUri;
-        }
-    }
-    else {
-        return false;
-    }
-
-    return relatedUri;
-}
-
 
 // Returns wikipedia abstract as string (source is dbpedia)
 function artist_abstract(artist_uri) {
