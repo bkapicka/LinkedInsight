@@ -4,7 +4,7 @@
 var LoginManager = function() {
 
 	this.allHandlers = new Array();
-    
+	
 	this.login = function() {
 		FB.login(function(response) {
 			if (response.authResponse) {
@@ -33,6 +33,8 @@ var LoginManager = function() {
 		FB.api('/me', function(response) {
 			console.log('Good to see you, ' + response.name + '.');
 			facebookId = response.id;
+			userName = response.name.substring(0, response.name.indexOf(' '));
+			console.log(userName);
 			// var image = document.getElementById('image');
 			//   image.src = 'https://graph.facebook.com/' + response.id + '/picture';
 			// var name = document.getElementById('name');

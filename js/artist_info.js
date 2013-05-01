@@ -124,6 +124,28 @@ function artist_displayName(artist_uri){
     return displayName;
 }
 
+// Input: artist URI
+// Output: Artist URIs
+function artist_sameAsUri(artist_uri){
+    var query   = "PREFIX dbp: <http://dbpedia.org/resource/>"
+                + "PREFIX dbpprop: <http://dbpedia.org/property/>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "SELECT ?sameAs WHERE "
+                + "{ ?sameAs owl:sameAs <"+ artist_uri + ">}";
+    var relatedUri = dbpedia_query(query,'sameAs');
+    if (relatedUri) {
+        if (relatedUri.indexOf("nytimes.com") < 0 ){
+            return relatedUri;
+        }
+    }
+    else {
+        return false;
+    }
+
+    return relatedUri;
+}
+
+
 // Returns wikipedia abstract as string (source is dbpedia)
 function artist_abstract(artist_uri) {
     var query 	= "PREFIX dbp: <http://dbpedia.org/resource/>"
