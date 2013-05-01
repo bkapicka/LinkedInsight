@@ -335,6 +335,9 @@ var DataManager = function() {
     // This function calls the scripts server to create a rdf file in the musicfoafiles subfolder
     //   web.mit.edu/sxc2/www/linkedinsight/musicfoafiles/
     // The remote php file will return a success or failure code
+    // 
+    // Example usage:
+    //   dataManager.createRDF("1234565.rdf", "<testrdf/>", dataManager.successRDFCallBack);
     this.createRDF = function(fileName, rdfString, callBack) {
 
         var scopeReference = this;
