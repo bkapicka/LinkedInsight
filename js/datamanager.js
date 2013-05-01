@@ -368,7 +368,7 @@ var DataManager = function() {
     this.createJson = function(fileName, artistNames, callBack, userName) {
 
         var scopeReference = this;
-        var jsonDataArray = this.fetchSPARQ(artistNames, userName);
+        var jsonDataArray = this.fetchSPARQL2(artistNames, userName);
 
         $.post('http://sxc2.scripts.mit.edu/linkedinsight/createJson.php', {
             posts:jsonDataArray,
