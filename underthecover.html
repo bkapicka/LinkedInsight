@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="css/foundation.css">
   <link rel="stylesheet" href="underLayout.css">
 
+  <script src="prettify/run_prettify.js"></script>
+ 
 </head>
 <body>
 
@@ -90,12 +92,12 @@
         </p>
         <div class = "row">
           <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >General Triple Diagram</a>
+            <div class = "panel"><img src="images/TriplesExample.png"/></div>
+            <h4><small>General Triple Diagram</small></h4>
           </div>
           <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >Musical Triple Diagram</a>
+            <div class = "panel"><img src="images/TriplesExample2.png"/></div>
+            <h4><small>Musical Triple Diagram</small></h4>
           </div>
         </div>
       </div>
@@ -106,16 +108,16 @@
       <a name = "linkgraph" ></a>
       <div  id = "linkgraph">
         <h3><small>Linked Data</small> Graphs</h3>
-        <p>A simple linked data graph is just a set of similar inter-related triples. A more complicated linked data graph connects groups of different triples with different relationships.
+        <p>A simple linked data graph is just a set of similar inter-related triples. A more complicated linked data graph connects groups of different triples with different relationships. A graph is, thus, a collection of triples.
         <br><br></p>
         <div class = "row">
           <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >A Simple Linked Data Graph</a>
+            <div class = "panel"><img src="images/GraphExample.png"></div>
+            <h4><small>A Simple Linked Data Graph</small></h4>
           </div>
           <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >An Example of Music Linked Data Graph</a>
+            <div class = "panel"><img src="images/GraphExample2.png"></div>
+            <h4><small>An Example of Music Linked Data Graph</small></h4>
           </div>
         </div>
       </div>
@@ -126,16 +128,25 @@
       <a name = "ontology" ></a>
       <div id = "ontology">
         <h3 ><small >Linked Data</small> Ontologies</h3>
-        <p>An ontology is ... </p>
-        <p>An set of rules that binds a triple store</p>
+        <p>An ontology is a structured representation of knowledge within a domain, similar to a schema. It's a set of rules that define relationships between pairs of concepts. It can be used to model a subject and extended to support reasoning about objects. Below is an example of a musical ontology:</p>
         <div class = "row">
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
+        <!--   <div class = "large-6 columns">
+            <div class = "panel"> </div>
+            <a href="" >Copy Code</a>
           </div>
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
+         -->
+          <div class = "large-12 columns">
+            <div class = "panel"><pre class="prettyprint">
+&lt;rdf:Description rdf:about=&quot;http://purl.org/ontology/mo/album&quot;&gt;
+  &lt;rdf:type rdf:resource=&quot;http://purl.org/ontology/mo/ReleaseType&quot;/&gt;
+  &lt;rdf:type rdf:resource=&quot;http://www.w3.org/2002/07/owl#Thing&quot;/&gt;
+  &lt;isDefinedBy xmlns=&quot;http://www.w3.org/2000/01/rdf-schema#&quot; rdf:datatype=&quot;http://www.w3.org/2001/XMLSchema#anyURI&quot;&gt; http://purl.org/ontology/mo/ &lt;/isDefinedBy&gt;
+  &lt;level xmlns=&quot;http://purl.org/ontology/mo/&quot;&gt;1&lt;/level&gt;
+  &lt;description xmlns=&quot;http://purl.org/dc/elements/1.1/&quot;&gt; One or more track issued together. This is a type of MusicalManifestation defined by the musical industry. &lt;/description&gt;
+  &lt;title xmlns=&quot;http://purl.org/dc/elements/1.1/&quot;&gt;album&lt;/title&gt;
+&lt;/rdf:Description&gt;</pre>
+            </div>
+            <a href="" >Copy Code</a>
           </div>
         </div>
       </div>
@@ -146,16 +157,21 @@
       <a name = "rdf"></a>
       <div>
         <h3><small>Linked Data</small> RDFs</h3>
-        <p>A RDF is ... </p>
-        <p>A standardized file format to store a linked data graph that machines can understand.</p>
+        <p>RDF is a standard model for linked data interchange on the Web. RDF has features that facilitate data merging even if the underlying schemas differ, and it specifically supports the evolution of schemas over time without requiring all the data consumers to be changed.</p>
         <div class = "row">
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
-          </div>
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
+           <div class = "large-12 columns">
+            <div class = "panel">
+              <pre class="prettyprint">
+&lt;rdf:Description rdf:about=&quot;http://www.recshop.fake/cd/Empire Burlesque&quot;&gt;
+  &lt;cd:artist&gt;Bob Dylan&lt;/cd:artist&gt;
+  &lt;cd:country&gt;USA&lt;/cd:country&gt;
+  &lt;cd:company&gt;Columbia&lt;/cd:company&gt;
+  &lt;cd:price&gt;10.90&lt;/cd:price&gt;
+  &lt;cd:year&gt;1985&lt;/cd:year&gt;
+&lt;/rdf:Description&gt;
+              </pre>
+            </div>
+            <a href="" >Copy Code</a>
           </div>
         </div>
       </div>
@@ -166,16 +182,23 @@
       <a name = "sparql"></a>
       <div>
         <h3><small>Linked Data</small> SPARQL</h3>
-        <p>SPARQL is ... </p>
-        <p>A database query language that works on linked data sets</p>
+        <p>Just as we use SQL to query relational databases (MySQL, Oracle), SPARQL is used for querying semantic web.</p>
         <div class = "row">
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
-          </div>
-          <div class = "large-6 columns">
-            <a href="" ><img src="http://placehold.it/400x200"></a>
-            <a href="" >View Diagram</a>
+          <div class = "large-12 columns">
+            <div class = "panel">
+              <pre class="prettyprint">
+PREFIX dbp: &lt;http://dbpedia.org/resource/&gt;
+PREFIX dbp2: &lt;http://dbpedia.org/ontology/&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX dbpprop: &lt;http://dbpedia.org/property/&gt;
+SELECT 
+  ?single 
+WHERE { 
+  ?single dbpprop:album &lt;http://dbpedia.org/resource/The_One_(video)&gt; . ?single rdf:type dbp2:Single 
+} 
+              </pre>
+            </div>
+            <a href="" >Copy Code</a>
           </div>
         </div>
       </div>
