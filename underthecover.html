@@ -97,8 +97,7 @@
           <b class="object">Object: </b><br>
           English - the object is the thing that the verb, or predicate, is acting upon<br>
           RDF - “target” resource or “value” (such as a word, number, or date)<br><br>
-        </p>
-        
+        </p>  
       </div>
       <br><hr>
       <!-- End Triples section -->
@@ -129,21 +128,8 @@
         <h3 ><small >Linked Data</small> Ontologies</h3>
         <p>An ontology is a defined structure. It is a set of rules that define relationships between pairs of concepts. It can be used to model a subject and extended to support reasoning about objects. Below is an example of a musical ontology:</p>
         <div class = "row">
-        <!--   <div class = "large-6 columns">
-            <div class = "panel"> </div>
-            <a href="" >Copy Code</a>
-          </div>
-         -->
-         <div class="large-12 columns">
-            <!--<div class = "code-frame"><span class="rdf_prefix">@prefix rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#></span>  .
-<span class="rdf_prefix">@prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#></span> .
-<span class="rdf_prefix">@prefix : &lthttp://dig.csail.mit.edu/2010/LinkedData/testdata/family#></span> .
-<span class="subject">Mammal</span> <span class="predicate">a</span> <span class="object">rdfs:Class</span>.
-<span class="subject">Person</span> <span class="predicate">rdfs:subClassOf</span> <span class="object">Mammal</span>, <span class="object">Animal</span>.
-<span class="subject">hasParent</span> <span class="predicate">a</span> <span class="object">rdf:Property</span>;
-<span class="predicate">rdfs:range</span> <span class="object">Person</span>;
-<span class="predicate">rdfs:domain</span> <span class="object">Person</span>.<br>
-            </div>-->
+          <div class="large-12 columns">
+          
             <div class = "code-frame">@prefix rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#>  .
 @prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix : &lthttp://dig.csail.mit.edu/2010/LinkedData/testdata/family#> .
@@ -154,48 +140,47 @@ rdfs:range Person;
 rdfs:domain Person.</div>
             <h4><small>Basic family ontology example <a href="" >Copy Code</a></small></h4><br>
 
-
             <div class = "code-frame"><span class="rdf_prefix">@prefix rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#></span>  .
 <span class="rdf_prefix">@prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#></span> .
 <span class="rdf_prefix">@prefix : &lthttp://dig.csail.mit.edu/2010/LinkedData/testdata/family#></span> .
             <table class="rdf-table">
-          <tr>
-            <td>Mammal</td>
-            <td>a</td>
-            <td>rdfs:Class.</td>
-          </tr>
-          <tr>
-            <td>Animal</td>
-            <td>a</td>
-            <td>rdfs:Class.</td>
-          </tr>
-          <tr>
-            <td>Person</td>
-            <td>rdfs:subClassOf</td>
-            <td>Mammal,</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>Animal.</td>
-          </tr>
-          <tr>
-            <td>hasParent</td>
-            <td>a</td>
-            <td>rdf:Property;</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>rdfs:range</td>
-            <td>Person;</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>rdfs:domain</td>
-            <td>Person.</td>
-          </tr>
-        </table></div>
-        <h4><small>Basic family ontology example - highlighted <a href="" >Copy Code</a></small></h4><br>
+              <tr>
+                <td>Mammal</td>
+                <td>a</td>
+                <td>rdfs:Class.</td>
+              </tr>
+              <tr>
+                <td>Animal</td>
+                <td>a</td>
+                <td>rdfs:Class.</td>
+              </tr>
+              <tr>
+                <td>Person</td>
+                <td>rdfs:subClassOf</td>
+                <td>Mammal,</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Animal.</td>
+              </tr>
+              <tr>
+                <td>hasParent</td>
+                <td>a</td>
+                <td>rdf:Property;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>rdfs:range</td>
+                <td>Person;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>rdfs:domain</td>
+                <td>Person.</td>
+              </tr>
+            </table></div>
+            <h4><small>Basic family ontology example - highlighted <a href="" >Copy Code</a></small></h4><br>
 
         <div class = "code-frame">@prefix rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#>  .
 @prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -213,44 +198,45 @@ rdfs:domain Album, YoutubeVideo.</div>
 <span class="rdf_prefix">@prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#></span> .
 <span class="rdf_prefix">@prefix : &lthttp://linkedinsight.com/2013/LinkedData/music#> .</span>
             <table class="rdf-table">
-          <tr>
-            <td>Artist</td>
-            <td>a</td>
-            <td>rdfs:Class.</td>
-          </tr>
-          <tr>
-            <td>Album</td>
-            <td>a</td>
-            <td>rdfs:Class.</td>
-          </tr>
-          <tr>
-            <td>YoutubeVideo</td>
-            <td>a</td>
-            <td>rdfs:Class.</td>
-          </tr>
-          <tr>
-            <td>artistOf</td>
-            <td>a</td>
-            <td>rdf:Property;</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>rdfs:range</td>
-            <td>Artist;</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>rdfs:domain</td>
-            <td>Album,</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>YoutubeVideo.</td>
-          </tr>
-        </table></div>
-        <h4><small>Music ontology example - highlighted <a href="" >Copy Code</a></small></h4><br>
+              <tr>
+                <td>Artist</td>
+                <td>a</td>
+                <td>rdfs:Class.</td>
+              </tr>
+              <tr>
+                <td>Album</td>
+                <td>a</td>
+                <td>rdfs:Class.</td>
+              </tr>
+              <tr>
+                <td>YoutubeVideo</td>
+                <td>a</td>
+                <td>rdfs:Class.</td>
+              </tr>
+              <tr>
+                <td>artistOf</td>
+                <td>a</td>
+                <td>rdf:Property;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>rdfs:range</td>
+                <td>Artist;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>rdfs:domain</td>
+                <td>Album,</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>YoutubeVideo.</td>
+              </tr>
+            </table></div>
+            <h4><small>Music ontology example - highlighted <a href="" >Copy Code</a></small></h4><br>
             
+          </div>
         </div>
       </div>
       <br><hr>
@@ -313,7 +299,7 @@ hasParent :Robert,:Barbara.</div>
 :MichaelJackson music:artistOf :Dangerous,
 :TheBestofMichaelJackson.
 .</div>
-            <h4><small>Family rdf example <a href="" >Copy Code</a></small></h4><br>
+            <h4><small>Music rdf example <a href="" >Copy Code</a></small></h4><br>
 
 
             <div class = "code-frame"><span class="rdf_prefix">@prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#></span>  .
@@ -346,9 +332,9 @@ hasParent :Robert,:Barbara.</div>
             <td>:TheBestofMichaelJackson.</td>
           </tr>
         </table></div>
-        <h4><small>Family rdf example - highlighted <a href="" >Copy Code</a></small></h4><br>
-        
+        <h4><small>Music rdf example - highlighted <a href="" >Copy Code</a></small></h4>
       </div>
+    </div>
       <br><hr>
       <!-- End RDF section -->
 
@@ -359,18 +345,67 @@ hasParent :Robert,:Barbara.</div>
         <p>Just as we use SQL to query relational databases (MySQL, Oracle), SPARQL is used for querying semantic web.</p>
         <div class = "row">
           <div class = "large-12 columns">
-            <div class = "panel">
-PREFIX dbp: &lt;http://dbpedia.org/resource/&gt;
-PREFIX dbp2: &lt;http://dbpedia.org/ontology/&gt;
-PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
-PREFIX dbpprop: &lt;http://dbpedia.org/property/&gt;
+            <div class = "code-frame">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX music: &lt;http://linkedinsight.com/2013/LinkedData/music#&gt;
+PREFIX data: &lt;http://dig.csail.mit.edu/2013/LinkedData/music/data#&gt;
 SELECT 
-  ?single 
-WHERE { 
-  ?single dbpprop:album &lt;http://dbpedia.org/resource/The_One_(video)&gt; . ?single rdf:type dbp2:Single 
-} 
-            </div>
-            <a href="" >Copy Code</a>
+ ?album
+WHERE{
+ data:MichaelJackson music:artistOf ?album
+}</div>
+            <h4><small>Music SPARQL query example <a href="" >Copy Code</a></small></h4><br>
+
+            <div class = "code-frame"><span class="rdf_prefix">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span>
+<span class="rdf_prefix">PREFIX music: &lt;http://linkedinsight.com/2013/LinkedData/music#&gt;
+</span><span class="rdf_prefix">PREFIX data: &lt;http://dig.csail.mit.edu/2013/LinkedData/music/data#&gt;</span> .
+          <table class="query-table">
+          <tr>
+            <td>SELECT </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tr>
+            <td></td>
+            <td><div class="object">?album</div></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>WHERE { </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>data:MichaelJackson</td>
+            <td>music:artistOf</td>
+            <td>?album</td>
+          </tr>
+          <tr>
+            <td>}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table></div>
+        <h4><small>Music SPARQL query example - highlighted <a href="" >Copy Code</a></small></h4><br>
+        
+        <div class = "code-frame"><table class="rdf-table">
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Dangerous</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>TheBestofMichaelJackson</td>
+          </tr>
+        </table></div>
+        <h4><small>Music SPARQL query example results <a href="" >Copy Code</a></small></h4><br>
+          </div>
           </div>
         </div>
       </div>
@@ -384,7 +419,7 @@ WHERE {
       <p>LinkedInsight utilizes linked data to design a highly usable and interactive timeline curated to your musical interests. </p>
       <br>
 
-      <div class = "row"  >
+      <div class = "row">
         <div class = "large-12 columns">
           <p><b>A musical artist is more than a collection of text, pictures and binary audio or video streams online. </b>Central to his identity is his <i>story</i>, his <i>artistic techniques</i>, his <i>musical style</i> and <i>evolution over time</i>, pieces of context that gets <b>lost amid masses of scattered information online.</b></p>
           <br>
@@ -396,10 +431,11 @@ WHERE {
          </p>
             
           </ul>
+        
+      
+          <p><blockquote><i>A walk down memory lane, sometimes sprinkled with a few surprising insights.</i></blockquote></p>
         </div>
       </div>
-      
-      <p><blockquote><i>A walk down memory lane, sometimes sprinkled with a few surprising insights.</i></blockquote></p>
     
       <hr>
       <!-- End values section -->
@@ -412,9 +448,11 @@ WHERE {
         <h3>Learn More About <small>Linked Data</small></h3>
         <p>A selection of resources to get to know the next version of the web.</p>
         <ul class = "marginedList">
-          <li>Some resource one</li>
-          <li>Some resource two</li>
-          <li><a href="#">Some linked resource two</a></li>
+          <li><a href="http://semanticweb.org/wiki/Main_Page">Semantic Web</a> - more informatnio on the semantic web</li>
+          <li><a href="http://www.foaf-project.org/">FOAF Project</a> - making it easier to share and use information about people and their activities</li>
+          <li><a href="http://wiki.dbpedia.org/About">DBPedia</a> - a crowd-sourced community effort to extract structured information from Wikipedia</li>
+          <li><a href="https://rdflib.readthedocs.org/en/latest/#introduction">RDF Python package</a> - a pure Python package providing the core RDF constructs</li>
+          <li><a href="(http://www.w3.org/standards/semanticweb/">Semantic Web Standards</a></li>
         </ul>
       </div>
 
@@ -427,21 +465,6 @@ WHERE {
     <!-- This is source ordered to be pulled to the left on larger screens -->
     <div class="large-3 columns">
       <div class = "panel"><img class = "fixedHeight" src="images/logo.png"/></div>
-     <!--  <ul class="side-nav">
-          <li ><a href="#value">Value of Linked Data</a></li>
-          <li ><a href="#triples">Triples</a></li>
-          <li ><a href="#linkgraph">Graph</a></li>
-          <li ><a href="#ontology">Ontology</a></li>
-          <li ><a href="#rdf">RDF</a></li>
-          <li ><a href="#sparql">SPARQL</a></li>
-          <li ><a href="#more">Learn More</a></li>
-        </ul>  -->
-      <!--   <dl class="sub-nav">
-          <dd data-magellan-arrival="build"><a href="#build">Build with HTML</a></dd>
-          <dd data-magellan-arrival="js"><a href="#js">Arrival 2</a></dd>
-        </dl>
-       -->
-      
     </div>
   
   </div>

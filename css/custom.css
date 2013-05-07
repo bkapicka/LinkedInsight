@@ -8,19 +8,20 @@ table, caption, tbody, tfoot, thead, tr, th, td  {
     
 }
 
-table.rdf-table tr.even, table.rdf-table tr.alt, table.rdf-table tr:nth-of-type(even) {
+table.rdf-table tr.even, table.rdf-table tr.alt, table.rdf-table tr:nth-of-type(even),
+table.query-table tr.even, table.query-table tr.alt, table.query-table tr:nth-of-type(even) {
     background: #FFFFFF; 
 }
 
-table.rdf-table tr td:nth-of-type(1){
+table.rdf-table tr td:nth-of-type(1), table.query-table tr td:nth-of-type(2){
 	color:#FF0000;
 }
 
-table.rdf-table tr td:nth-of-type(2){
+table.rdf-table tr td:nth-of-type(2),table.query-table tr td:nth-of-type(3){
 	color:#00FF00;
 }
 
-table.rdf-table tr td:nth-of-type(3){
+table.rdf-table tr td:nth-of-type(3),table.query-table tr td:nth-of-type(4){
 	color:#0000FF;
 }
 
