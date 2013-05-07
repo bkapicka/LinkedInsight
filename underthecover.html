@@ -54,22 +54,19 @@
       
       <!-- Begin values section -->
       <a name = "value" ></a>
-      <div class = "panel">
         <h3>The Value of <small>Linked Data</small></h3>
-        <p><b>A musical artist is more than a collection of text, pictures and binary audio or video streams online. </b>Central to his identity is his <i>story</i>, his <i>artistic techniques</i>, his <i>musical style</i> and <i>evolution over time</i>, pieces of context that gets <b>lost amid masses of scattered information online.</b></p>
-        <br>
-        <p>Linked data strings these pieces of context together into the unique identity of any given artist:</p> 
-        <ul class = "marginedList" id = "value">
-          <li>When we search for all singles from Ferry Corsten, it automatically returns the song “Out of the Blue” by System F, Corsten’s alias in the 1990’s.</p>
-          <li>It understands “that song by Luther Vandross” could mean it’s written by him, performed by him, or both.</p>
-          <li>Linked data delivers the context behind the artist, granular enough that each album or single could have its individual stories, yet structured enough to paint a holistic picture of an artist, or genre through time.</li>
-        </ul>
-        <br>
-        <p>At LinkedInsight, we utilized linked data to design a highly usable and interactive timeline curated to your musical interests. </p>
-        <br>
-        <p><blockquote><i>A walk down memory lane, sometimes sprinkled with a few surprising insights.</i></blockquote></p>
         
-      </div>
+        <div class = "row"  >
+          <div class = "large-12 columns" >
+            <p>Linked data brings together disparate pieces of information:</p>
+            <ul class = "marginedList" >
+              <li>Providing more insight than traditional structured datasets</p>
+              <li>Accounts for complexity in representing our world as data</p>
+              <li>Provides additional context.</li>
+            </ul>
+          </div>
+        </div>
+        
       <hr>
       <!-- End values section -->
 
@@ -77,20 +74,10 @@
       <a name = "triples" ></a>
       <div id = "triples">
         <h3><small >Linked Data</small> Triples</h3>
-        <p>A RDF triple is a (1)subject-(2)predicate-(3)object expression, which is very similar to what it means in English:<br><br> 
-          <b>Subject: </b><br>
-          English - the thing we’re talking about<br>
-          RDF - this is the resource<br><br>
+        
+        <p>A triple is composed of a subject > predicate > object expression, which creates the foundation for linked data:<br><br> 
 
-          <b>Predicate: </b><br>
-          English - a term to describe or modify the subject<br>
-          RDF - used to denote relationships between the subject and the object<br><br>
-
-          <b>Object: </b><br>
-          English - the object is the thing that the verb, or predicate, is acting upon<br>
-          RDF - the “target” or “value” of the triple, which can be another resource, or just a literal value such as a number or word<br><br>
-        </p>
-        <div class = "row">
+          <div class = "row">
           <div class = "large-6 columns">
             <div class = "panel"><img src="images/TriplesExample.png"/></div>
             <h4><small>General Triple Diagram</small></h4>
@@ -100,6 +87,19 @@
             <h4><small>Musical Triple Diagram</small></h4>
           </div>
         </div>
+          <b>Subject: </b><br>
+          English - the thing we’re talking about<br>
+          RDF - a resource<br><br>
+
+          <b>Predicate: </b><br>
+          English - a term to describe or modify the subject<br>
+          RDF - relationship between the subject and the object<br><br>
+
+          <b>Object: </b><br>
+          English - the object is the thing that the verb, or predicate, is acting upon<br>
+          RDF - “target” resource or “value” (such as a word, number, or date)<br><br>
+        </p>
+        
       </div>
       <br><hr>
       <!-- End Triples section -->
@@ -108,7 +108,7 @@
       <a name = "linkgraph" ></a>
       <div  id = "linkgraph">
         <h3><small>Linked Data</small> Graphs</h3>
-        <p>A simple linked data graph is just a set of similar inter-related triples. A more complicated linked data graph connects groups of different triples with different relationships. A graph is, thus, a collection of triples.
+        <p>A collection of triples:
         <br><br></p>
         <div class = "row">
           <div class = "large-6 columns">
@@ -128,14 +128,28 @@
       <a name = "ontology" ></a>
       <div id = "ontology">
         <h3 ><small >Linked Data</small> Ontologies</h3>
-        <p>An ontology is a structured representation of knowledge within a domain, similar to a schema. It's a set of rules that define relationships between pairs of concepts. It can be used to model a subject and extended to support reasoning about objects. Below is an example of a musical ontology:</p>
+        <p>An ontology is a defined structure. It is a set of rules that define relationships between pairs of concepts. It can be used to model a subject and extended to support reasoning about objects. Below is an example of a musical ontology:</p>
         <div class = "row">
         <!--   <div class = "large-6 columns">
             <div class = "panel"> </div>
             <a href="" >Copy Code</a>
           </div>
          -->
-          <div class = "large-12 columns">
+         <div class = "row">
+          <div class = "large-6 columns">
+           
+            <div class = "panel"><pre class="prettyprint">
+&lt;rdf:Description rdf:about=&quot;http://purl.org/ontology/mo/album&quot;&gt;
+  &lt;rdf:type rdf:resource=&quot;http://purl.org/ontology/mo/ReleaseType&quot;/&gt;
+  &lt;rdf:type rdf:resource=&quot;http://www.w3.org/2002/07/owl#Thing&quot;/&gt;
+  &lt;isDefinedBy xmlns=&quot;http://www.w3.org/2000/01/rdf-schema#&quot; rdf:datatype=&quot;http://www.w3.org/2001/XMLSchema#anyURI&quot;&gt; http://purl.org/ontology/mo/ &lt;/isDefinedBy&gt;
+  &lt;level xmlns=&quot;http://purl.org/ontology/mo/&quot;&gt;1&lt;/level&gt;
+  &lt;description xmlns=&quot;http://purl.org/dc/elements/1.1/&quot;&gt; One or more track issued together. This is a type of MusicalManifestation defined by the musical industry. &lt;/description&gt;
+  &lt;title xmlns=&quot;http://purl.org/dc/elements/1.1/&quot;&gt;album&lt;/title&gt;
+&lt;/rdf:Description&gt;</pre></div>
+            <a href="" >Copy Code</a>
+          </div>
+          <div class = "large-6 columns">
             <div class = "panel"><pre class="prettyprint">
 &lt;rdf:Description rdf:about=&quot;http://purl.org/ontology/mo/album&quot;&gt;
   &lt;rdf:type rdf:resource=&quot;http://purl.org/ontology/mo/ReleaseType&quot;/&gt;
@@ -147,6 +161,7 @@
 &lt;/rdf:Description&gt;</pre>
             </div>
             <a href="" >Copy Code</a>
+          </div>
           </div>
         </div>
       </div>
@@ -205,6 +220,35 @@ WHERE {
       <br><hr>
       <!-- End SPARQL section -->
 
+      <!-- Begin values section -->
+      <h3><small>Why not a SQL DB? Why</small> Linked Data?</h3>
+      
+      <br>
+      <p>LinkedInsight utilizes linked data to design a highly usable and interactive timeline curated to your musical interests. </p>
+      <br>
+
+      <div class = "row"  >
+        <div class = "large-12 columns">
+          <p><b>A musical artist is more than a collection of text, pictures and binary audio or video streams online. </b>Central to his identity is his <i>story</i>, his <i>artistic techniques</i>, his <i>musical style</i> and <i>evolution over time</i>, pieces of context that gets <b>lost amid masses of scattered information online.</b></p>
+          <br>
+          <p>Linked data strings these pieces of context together into the unique identity of any given artist:</p>
+          <ul class = "marginedList"  id = "value">
+            <li>It understands Ferry Corsten is also System F, and returns albums and singles for both aliases, broadening music discovery.</p>
+            <li>It provides highly relevant blurbs and rich links about the specific genre of a song, an album and an artist, and their evolution over time.</li>
+            <li>It's easily extensible to for enhanced musical discovery, allowing collaborators per song, related artists, music written, even other people with similar music tastes.</li>
+         </p>
+            
+          </ul>
+        </div>
+      </div>
+      
+      <p><blockquote><i>A walk down memory lane, sometimes sprinkled with a few surprising insights.</i></blockquote></p>
+    
+      <hr>
+      <!-- End values section -->
+
+
+
       <!-- Begin Learn more section -->
       <a name = "more"></a>
       <div class="panel" id = "more">
@@ -247,12 +291,8 @@ WHERE {
  
   <!-- At the bottom of your page but inside of the body tag -->
   <ol id="joyRideTipContent" class="joyride-list" data-joyride>
-    <li data-id="value" data-text="Next" data-options="tipLocation:right">
-      <h4>Take a Tour</h4>
-      <p>Read about the value of linked data applied to music</p>
-    </li>
     <li data-id="triples" data-text="Next" data-options="tipLocation:right">
-      <h4>First Stop: Triple</h4>
+      <h4>First Stop: Triples</h4>
       <p>The basic building block of linked data.</p>
     </li>
     <li data-id="linkgraph" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
@@ -262,6 +302,10 @@ WHERE {
     <li data-id="ontology" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
       <h4>Third Stop: Ontologies and More</h4>
       <p>More advanced topics relating to linked data.</p>
+    </li>
+    <li data-id="value" data-text="Next" data-options="tipLocation:right">
+      <h4>Fourth Stop:</h4>
+      <p>Read about the value of linked data applied to music.</p>
     </li>
     <li data-id="more" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
       <h4>Final Stop: Learn More</h4>
