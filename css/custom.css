@@ -1,0 +1,77 @@
+table, caption, tbody, tfoot, thead, tr, th, td  {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: left;
+    background: transparent;
+    
+}
+
+table.rdf-table tr.even, table.rdf-table tr.alt, table.rdf-table tr:nth-of-type(even) {
+    background: #FFFFFF; 
+}
+
+table.rdf-table tr td:nth-of-type(1){
+	color:#FF0000;
+}
+
+table.rdf-table tr td:nth-of-type(2){
+	color:#00FF00;
+}
+
+table.rdf-table tr td:nth-of-type(3){
+	color:#0000FF;
+}
+
+table tr td {
+	padding: 2px;
+}
+
+.code-frame {
+	border-style:solid;
+	border-width:1px;
+
+	padding: 5px;
+
+	font-size:10pt;
+
+	/*Word wrap*/
+	white-space: pre-wrap;      /* CSS3 */   
+   	white-space: -moz-pre-wrap; /* Firefox */    
+   	white-space: -pre-wrap;     /* Opera <7 */   
+   	white-space: -o-pre-wrap;   /* Opera 7 */    
+   	word-wrap: break-word;      /* IE */
+}
+
+.subject {
+	color:#FF0000;
+}
+
+.predicate {
+	color:#00FF00;
+}
+
+.object {
+	color:#0000FF;
+}
+
+.rdf_prefix {
+	color:#800080;
+}
+
+.highlight_red{
+	background-color:#FFCCCC; /* Light Red */
+}
+
+.highlight_green {
+	background-color:#CCE6CC;  /* Light Green */
+}
+
+.highlight_blue {
+	background-color:#CCCCFF;  /* Light Blue */
+}
+
+.highlight_purple {
+	background-color:#E6CCE6;  /* Light Purple */
+}
