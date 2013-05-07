@@ -18,7 +18,7 @@ table.rdf-table tr td:nth-of-type(1), table.query-table tr td:nth-of-type(2){
 }
 
 table.rdf-table tr td:nth-of-type(2),table.query-table tr td:nth-of-type(3){
-	color:#00FF00;
+	color:darkgreen;
 }
 
 table.rdf-table tr td:nth-of-type(3),table.query-table tr td:nth-of-type(4){
@@ -50,7 +50,7 @@ table tr td {
 }
 
 .predicate {
-	color:#00FF00;
+	color:darkgreen;
 }
 
 .object {
