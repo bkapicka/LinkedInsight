@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-touch-fullscreen" content="yes">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	    <title>LinkedInsight</title>
+		
+		<link rel="stylesheet" href="css/normalize.css" />
+ 		<link rel="stylesheet" href="css/foundation.css" />
+	    <script src="js/external_js/jquery-1.9.1.js"></script>
+ 		<script src="js/vendor/custom.modernizr.js"></script>	
+		<script src="js/sparql.js"></script>	
+		<script src="js/dbpedia.js"></script>	
+		<script src="js/artist_info.js"></script>	
+	
+		<!-- Load style sheets -->
+		<link rel="stylesheet" type="text/css" href="mainLayout.css" />
+		<script type="text/javascript" src="js/storyjs-embed.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var jsonCreated = 'example_json.json';
+				createStoryJS({
+			        type:       'timeline',
+			        width:      '100%',
+			        height:     '600',
+			        source:     jsonCreated,
+			        embed_id:   'timeline-embed'           // ID of the DIV you want to load the timeline into
+			    });
+			});
+		</script>
+    </head>
+    
+	
+	<body>
+		<div class = "dropShadowClass">
+		    <div id="header" class = "panel">
+		    </div>
+		</div>
+
+   		<div id = "timelineSlider">
+ 			 <!-- BEGIN Timeline Embed -->
+			  <div id="timeline-embed"></div>
+			  <!-- END Timeline Embed-->
+		</div>
+
+      <div id="fb-root"></div>
+      <script>
+		var userNameId;
+
+		function login() {
+		FB.login(function(response) {
+				if (response.authResponse) {
+					// connected
+					testAPI();
+				} else {
+					// cancelled
+				}
+			});
+		}
+		
+		function createJson(fileName, response) {
+
+		    $.post('http://sxc2.scripts.mit.edu/linkedinsight/createJson.php', {
+		        posts:"test post",
+		        fileName:fileName
+		    }) 
+		    .success(function(data) {
+		        console.log("post success:" + data);
+		    })
+		    .fail(function(data) {
+		        console.log("post fail:" + data);
+		    });
+
+		}
+
+		function testAPI() {
+			console.log('Welcome!  Fetching your information.... ');
+			FB.api('/me', function(response) {
+				console.log('Good to see you, ' + response.name + '.');
+				// var image = document.getElementById('image');
+				//   image.src = 'https://graph.facebook.com/' + response.id + '/picture';
+				// var name = document.getElementById('name');
+				//   name.innerHTML = response.name;
+				// var name = document.getElementById('hometown');
+				//   name.innerHTML = response.hometown.name;
+			});
+			FB.api('/me/friends', function(response) {
+				// var name = document.getElementById('friends');
+				//   var friendslist;
+				//   for (var i = 0; i < response.data.length; i++) {
+				// 	friendslist = friendslist + response.data[i].name + "\n";
+				//   }
+				//   name.innerHTML = friendslist;
+				  
+			});
+			FB.api('/me/likes', function(response) {
+				  var likesList;
+				  for (var i = 0; i < response.data.length; i++) {
+					likesList = likesList + response.data[i].category +":" +  response.data[i].name+ " \n";
+					if (response.data[i].category == "Musician/band"){
+						console.log(response.data[i].category + " " + response.data[i].name);
+						var artistURI = artist_URI(response.data[i].name);
+						console.log(artistURI);
+						console.log(artist_displayName(artistURI));
+						console.log(artist_abstract(artistURI));
+						console.log(artist_activeStart(artistURI));
+						console.log(artist_photo(artistURI));
+						console.log(artist_single_list(artistURI));
+						console.log(artist_album_list(artistURI));
+					}
+
+					FB.api("/"+response.data[i].id, function(response) {
+						
+					});
+
+				}
+
+				createJson("test.json", response);
+				  //name.innerHTML = likesList;
+				// crawl through and get id for stuff
+				
+			});
+		}	  
+	  
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '153506961485121', // App ID
+            channelUrl : 'channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+          });
+		  FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+			console.log("connected");
+			testAPI();			
+		  } else if (response.status === 'not_authorized') {
+			console.log("not authorized");
+			login();
+		  } else {
+			console.log("not logged in");
+			login();
+		  }
+		 });
+        };
+	
+        // Load the SDK Asynchronously
+        (function(d){
+           var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           ref.parentNode.insertBefore(js, ref);
+         }(document));
+
+
+    </script>
+
+   	<p id="footer">LinkedInsight Inc. <a href="">CC</a></p>
+
+   
+    </body>
+ </html>

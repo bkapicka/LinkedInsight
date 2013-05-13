@@ -1,0 +1,59 @@
+
+{
+    "timeline":
+    {
+        "headline":"My Artist Timeline",
+        "type":"default",
+		"text":"A visual chronological experience of audio",
+		"startDate":"2002,1,26",
+        "date": [
+            {
+                "startDate":"2004,1,10",
+                "headline":"Reptilia",
+                "text":"<p>Reptilia is a song by indie rock band The Strokes, and the second single from their second album Room on Fire.<br> Length: 214 seconds.</p>",
+				"asset":
+                {
+                    "media":"http://www.youtube.com/watch?v=b8-tXG8KrWs",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+			{
+                "startDate":"2002,1,1",
+				"endDate":"2002,1,1",
+                "headline":"Red Hot Chili Peppers",
+                "text":"<p>Red Hot Chili Peppers are an American rock band formed in Los Angeles in 1983. </p>",
+                "asset":
+                {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/1/16/Rhcp-live-pinkpop05.jpg",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2009,1,26",
+				"headline":"Ferry Corsten",
+                "text":"<p>Ferry Corsten, also known under the alias System F, is a Dutch producer of electronic dance music, in addition to being a DJ and remixer. </p>",
+                "asset":
+                {
+                    "media":"http://www.sackmagazine.com/wp-content/uploads/2012/10/2009EZ_BSK_5D-3376-620x413-1.jpeg",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2010,1,10",
+                "headline":"The Strokes",
+                "text":"<p>The Strokes are an American rock band from New York City, consisting of Julian Casablancas, Nick Valensi, Albert Hammond, Jr., Nikolai Fraiture and Fabrizio Moretti. </p>",
+                "asset":
+                {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/b/b8/TheStrokes.jpg",
+                    "credit":"",
+                    "caption":""
+					
+		        }
+            }
+			
+        ]
+    }
+}
